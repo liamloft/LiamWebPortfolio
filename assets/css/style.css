@@ -1877,4 +1877,28 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .timeline-text { max-width: 700px; }
 
+
+
+  /**
+	 * VIDEO
+	 */
+   
+  .project-img video {
+    width: 100%; /* Ensures the video fills the container */
+    height: auto; /* Maintains the aspect ratio */
+    border-radius: 10px; /* Matches image styling, if applicable */
+  }
+
+  .project-img video {
+    display: none; /* Hide the video by default */
+  }
+  
+  .project-item:hover .project-img video {
+    display: block; /* Show the video on hover */
+  }
+  
+  .project-item:hover .project-img img {
+    display: none; /* Hide the image on hover */
+  }
+
 }
