@@ -1,1222 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liam's Portfolio</title>
-
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/social_plunge.png" type="image/x-icon">
-
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liam Loftus: field notes</title>
+<meta name="description" content="Liam Loftus: Sr. Embedded Software Engineer at Rivian, founder of Huntington Run Club and Social Plunge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4EF; --ink:#0F1E2B; --muted:#52646F; --line:#BCC8CB; --dot:#CBD4D2; --panel:#FAFBF8;
+  --acc-l:#0B6FB8; --acc-d:#5BB4F0; --accent:var(--acc-l);
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --gut:2.4rem; --spine:.7rem;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0B1620;--ink:#E8EFF3;--muted:#93A6B2;--line:#2A4051;--dot:#16283A;--panel:#112232;--accent:var(--acc-d);color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0B1620;--ink:#E8EFF3;--muted:#93A6B2;--line:#2A4051;--dot:#16283A;--panel:#112232;--accent:var(--acc-d);color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg) radial-gradient(var(--dot) 1.2px,transparent 1.4px) 0 0/30px 30px;color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{position:relative;z-index:1;max-width:64rem;margin:0 auto;padding:0 1.25rem}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+.bar b{font-weight:800;letter-spacing:-.02em}
+.mode{font:500 .85rem var(--mono);background:none;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:.35rem .8rem;cursor:pointer}
+.mode:hover{border-color:var(--accent)}
+.rail{position:relative;padding-left:var(--gut)}
+.spine{position:absolute;left:var(--spine);top:0;bottom:0;width:2px;background:var(--line)}
+.spine i{position:absolute;left:0;top:0;width:2px;height:0;background:var(--accent)}
+.drop{position:absolute;left:-7px;top:0;width:16px;height:16px;background:var(--accent);border-radius:50% 0 50% 50%;transform:translateY(-8px) rotate(-45deg);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent)}
+.fig{position:relative}.fig .conn{position:absolute;left:calc(var(--spine) - var(--gut));top:40%;bottom:-1rem;width:calc(var(--gut) - var(--spine) + .5rem);height:auto}
+.spine,.fig .conn,.sec::before{transition:opacity .45s}
+.rail:not(.on) .spine,.rail:not(.on) .conn,.rail:not(.on) .sec::before{opacity:0}
+.mono{font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero{padding:clamp(2rem,7vw,5rem) 0 2rem}
+.hero .mono{margin:0 0 1.5rem}
+h1{font-weight:800;font-size:clamp(2.6rem,11vw,7rem);line-height:.94;letter-spacing:-.045em;margin:0 0 1.5rem}
+h1 span{display:block}
+.u{position:relative;display:inline-block!important;color:var(--ink)}
+.u svg{position:absolute;left:0;bottom:-.12em;width:100%;height:.22em;color:var(--accent);overflow:visible}
+.lead{font-size:clamp(1.2rem,3.4vw,1.6rem);line-height:1.4;max-width:36rem;margin:2.2rem 0 0}
+.lead b{color:var(--accent);font-weight:500;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--accent) 18%,transparent) 62%)}
+.note{font:400 1rem/1.6 var(--mono);color:var(--accent);margin:2rem 0 0 1.6rem;max-width:20rem;position:relative}
+.note svg{position:absolute;left:-1.6rem;top:-.2rem;width:1.3rem;height:1.8rem;color:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:1.25rem 1.75rem;align-items:center;margin-top:2rem}
+.btn{display:inline-block;background:var(--accent);color:var(--bg);font-weight:500;text-decoration:none;padding:.85rem 1.5rem;outline:2px solid var(--ink);outline-offset:4px;border-radius:2px}
+.btn:hover{transform:translate(-1px,-1px)}
+.lnk{font-weight:500;text-decoration:none;border-bottom:2px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.ink{margin-top:3rem}
+.sw{display:flex;gap:.65rem;margin:.7rem 0 .4rem;flex-wrap:wrap}
+.sw button{width:1.9rem;height:1.9rem;border-radius:50%;border:0;cursor:pointer;background:var(--c);box-shadow:0 0 0 2px var(--bg),0 0 0 4px transparent}
+.sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+.fig{margin:3rem 0 1rem;max-width:36rem}
+.fig svg{width:100%;height:auto;color:var(--muted)}
+.fig .acc{color:var(--accent)}
+.fig figcaption{text-align:right;margin-top:.25rem}
+section{padding:clamp(2.5rem,6vw,4.5rem) 0 1rem;position:relative}
+.sec{margin:0 0 1rem;position:relative}
+.sec::before{content:"";position:absolute;left:calc(var(--spine) - var(--gut) - 6px);top:.1rem;width:14px;height:14px;border:2px solid var(--accent);border-radius:50%;background:var(--bg)}
+h2{font-weight:800;font-size:clamp(2rem,6vw,3.6rem);line-height:1;letter-spacing:-.04em;margin:.5rem 0 1.5rem}
+.sub{max-width:36rem;color:var(--muted);margin:0 0 2rem}
+.now{border-top:2px solid var(--line);border-bottom:2px solid var(--line);margin:1.5rem 0 0;padding:.5rem 0;list-style:none}
+.now li{padding:.55rem 0 .55rem 1.6rem;position:relative;font-size:1.25rem;font-weight:500}
+.now li::before{content:"";position:absolute;left:0;top:1.35rem;width:.9rem;height:2px;background:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:0 0 2.5rem}
+.stat{background:var(--panel);border:1.5px solid var(--line);padding:1.1rem 1.1rem 1rem;border-radius:3px 6px 4px 5px}
+.stat strong{display:block;font-size:clamp(1.7rem,5vw,2.8rem);line-height:1;letter-spacing:-.04em;font-weight:800;color:var(--accent)}
+.stat span{display:block;margin-top:.5rem;color:var(--muted);font-size:.95rem}
+.job{display:grid;grid-template-columns:9rem 1fr;gap:.2rem 1.5rem;padding:1.4rem 0;border-top:1.5px solid var(--line)}
+.job:first-of-type{border-top:0}
+.job .mono{padding-top:.35rem}
+.job h3{margin:0;font-size:1.3rem;letter-spacing:-.02em}
+.job .co{margin:.1rem 0 .6rem;color:var(--muted)}
+.job ul{margin:0;padding-left:1.1rem;max-width:40rem}
+.job li{margin:.3rem 0}
+.entry{padding:1.6rem 0;border-top:1.5px solid var(--line)}
+.entry:last-child{border-bottom:1.5px solid var(--line)}
+.entry .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}
+.stamp{font:500 .78rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:2px solid var(--accent);padding:.15rem .6rem;border-radius:2px 4px 3px 5px;transform:rotate(-1.5deg)}
+.entry h3{margin:0 0 .4rem;font-size:clamp(1.6rem,5vw,2.4rem);letter-spacing:-.035em;line-height:1.05;font-weight:800}
+.entry p{margin:0;color:var(--muted);max-width:34rem}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem 3rem}
+.two p{margin:0 0 1rem;color:var(--muted)}
+.two p b{color:var(--ink);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}
+.chip{font:400 .85rem var(--mono);padding:.25rem .7rem;border:1.5px solid var(--line);border-radius:999px;background:var(--panel)}
+.edu{margin:0;padding:0;list-style:none}
+.edu li{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1.5px solid var(--line)}
+.edu li span:last-child{font:400 .85rem var(--mono);color:var(--muted);white-space:nowrap;padding-top:.15rem}
+.big{display:block;font-weight:800;font-size:clamp(1.55rem,6.6vw,4rem);line-height:1.05;letter-spacing:-.04em;text-decoration:none;word-break:break-word}
+.big:hover{color:var(--accent)}
+.links{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin-top:1.5rem;font-family:var(--mono);font-size:.95rem;color:var(--muted)}
+footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-size:.82rem}
+@media (max-width:720px){
+  :root{--gut:1.9rem;--spine:.45rem}
+  .job,.two{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
-
 <body>
+<div class="wrap">
+  <div class="bar"><b>Liam Loftus</b><button class="mode" id="mode" type="button" aria-label="Toggle light and dark mode">light / dark</button></div>
 
-  <!--
-    - #MAIN
-  -->
+  <main class="rail" id="rail">
+    <div class="spine" aria-hidden="true"><i id="fill"></i><div class="drop" id="drop"></div></div>
 
-  <main>
+    <div class="hero">
+      <p class="mono">Ideas &amp; Notes, 2026 · Southern California</p>
+      <h1><span>Creativity is</span><span>intelligence</span><span class="u">having fun.<svg viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 C60 2, 120 10, 180 5 S270 4, 298 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
+      <p class="lead"><b>Sr. Embedded Software Engineer at Rivian.</b> Former collegiate athlete, founder of Huntington Run Club, and maker.</p>
+      <p class="note"><svg viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 26 C4 24 3 12 6 4 M2 9 L6 3 L11 8"/></svg>note to self: try it. it’s usually not as hard as you think, and if it is, great!</p>
+      <div class="cta"><a class="btn" href="#work">See the work ↓</a><a class="lnk" href="#side">Side quests ↓</a></div>
 
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="./assets/images/liam_emoji.png" alt="Liam Loftus" width="80">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Liam Loftus">Liam Loftus</h1>
-
-          <p class="title">Embedded Software Engineer</p>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
+      <div class="ink">
+        <span class="mono">Ink</span>
+        <div class="sw" id="sw" role="group" aria-label="Accent color"></div>
+        <span class="mono" id="swname" style="text-transform:none"></span>
       </div>
 
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:liamloft8@gmail.com" class="contact-link">liamloft8@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="tel:+9498679463" class="contact-link">+1 (949) 867-9463</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Los Angeles, California, USA</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-          <!-- <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
-          </li> -->
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I'm a Software Engineer in Los Angeles, California, working on Electric Vehicles and Chargers.
-            My hobbies are sports and personal projects. I played football and race triathlons.
-            I've made things like an FPV Drone and a 3D Printer.
-          </p>
-
-          <p>
-            If you’ve got an ambitious idea or an exciting challenge,
-            let’s connect—I’m always ready to create the next big thing!
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What i'm doing</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/RAN15.png
-                " alt="design icon" width="80">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">EV Fast Charging</h4>
-
-                <p class="service-item-text">
-                  Develop software for Rivian’s OpenRAN Charging Network.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/fpv_drone.png" alt="Web development icon" width="80">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">FPV Drone</h4>
-
-                <p class="service-item-text">
-                  Built and piloting a custom First-Person-View Drone.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/social_plunge.png" alt="mobile app icon" width="80">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Huntington RunClub & Social Plunge</h4>
-
-                <p class="service-item-text">
-                  Founded @huntingtonrunclub and @socialplunge.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/3Dprinter.png" alt="camera icon" width="80">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">3D Printer</h4>
-
-                <p class="service-item-text">
-                  Built a 3D Printer, design and manufacture custom parts.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-        <!-- 
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Testimonials</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section> -->
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-              </figure>
-
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
-            </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-              <time datetime="2021-06-14">14 June, 2021</time>
-
-              <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
-        </div>
-
-
-        <!--
-          - clients
-        -->
-
-        <section class="clients">
-
-          <h3 class="h3 clients-title">Brands</h3>
-
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/uria.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/social_plunge.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/huntingtonrunclub.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/rivian.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/LawrenceEquipment.png" alt="client logo">
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">University Of California, Irvine</h4>
-
-              <span>2025</span>
-
-              <p class="timeline-text">
-                Embedded Systems engineering.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">California Institute of Technology</h4>
-
-              <span>2021</span>
-
-              <p class="timeline-text">
-                Introduction to Computer Programming.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">The University of Sydney</h4>
-
-              <span>2020</span>
-
-              <p class="timeline-text">
-                Quantitative Business Analysis.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Tecnológico de Monterrey</h4>
-
-              <span>20016 — 2020</span>
-
-              <p class="timeline-text">
-                Bachelor of Mechatronics Engineering.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Embedded Software Engineer @ Rivian</h4>
-
-              <span>2023 — Present</span>
-
-              <p class="timeline-text">
-                Developing OpenRAN (Rivian’s Open DCFC Charging Network) focusing on cloud integration (OCPP 2.0.1),
-                billing, and HMI. Using C++, Linux, Gitlab, Jira, RTOS.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Test Automation Engineer @ Rivian</h4>
-
-              <span>2022 — 2023</span>
-
-              <p class="timeline-text">
-                Designed and engineered Rivian’s R1T and R1S ECUs end-of-line tester hardware and test sequences with
-                the following technologies NI DAQ, LabView, Teststand, Python, OpenHTF.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Mechatronics Engineer @ Lawrence Equipment</h4>
-
-              <span>2021 — 2022</span>
-
-              <p class="timeline-text">
-                Install, troubleshoot and service Automated Flatbread(Corn & Flour) & Chip Fryer Production Lines around
-                the world collaborating with engineers and project managers.
-                Industrial Automation with PLC Allen Bradley Studio 5000, Autodesk Inventor CAD.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Engineering and Sales @ Uría</h4>
-
-              <span>2020 — 2021</span>
-
-              <p class="timeline-text">
-                Install, troubleshoot and service Automated Flatbread(Corn & Flour) & Chip Fryer Production Lines around
-                the world collaborating with engineers and project managers.
-                Industrial Automation with PLC Allen Bradley Studio 5000, Autodesk Inventor CAD.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">C++</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Linux</h5>
-                <data value="40">40%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 40%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">CAD</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Project Management</h5>
-                <data value="60">60%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 60%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">English</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Spanish</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Russian</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Software</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Projects</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Business</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Software</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Projects</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Business</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="software">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/OpenRAN.png" alt="OpenRAN" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">OpenRAN</h3>
-
-                <p class="project-category">Software</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="software">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/RANBilling.png" alt="Billing" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">RAN Billing</h3>
-
-                <p class="project-category">Software</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="projects">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/LiamDrone.jpg" alt="FPV Drone" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">FPV Drone</h3>
-
-                <p class="project-category">Projects</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="projects">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <!-- Video Element
-                  <video autoplay loop muted playsinline>
-                    <source src="./assets/videos/3d.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video> -->
-
-                  <img src="./assets/images/3Dpic.png" alt="3D Printer" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">3D Printer</h3>
-
-                <p class="project-category">Projects</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="projects">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/WireEDM.png" alt="Wire EDM Retro-fit" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Wire EDM Retro-fit</h3>
-
-                <p class="project-category">Projects</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="business">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/social_plunge.png" alt="metaspark" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Social Plunge</h3>
-
-                <p class="project-category">Business</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="business">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/huntingtonrunclub.png" alt="Huntington RunClub" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Huntington RunClub</h3>
-
-                <p class="project-category">Business</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="business">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/uria.png" alt="Uría" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Uría</h3>
-
-                <p class="project-category">Business</p>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #BLOG
-      -->
-      <!-- 
-      <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
-                  <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-                  <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-                  <p class="blog-text">
-                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-                  <p class="blog-text">
-                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-                  <p class="blog-text">
-                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-                  <p class="blog-text">
-                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article> -->
-
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-          <div>
-            <img src="./assets/images/LApic.png" alt="mobile app icon">
-          </div>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="#" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article>
-
+      <figure class="fig"><svg class="conn" viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true"><path d="M40 0 C8 0 1 25 1 100" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+        <svg viewBox="0 0 600 170" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Sketch of a pier over the ocean">
+          <g class="acc"><path d="M14 78 C150 74 330 82 530 76"/><path d="M14 66 C150 62 330 70 530 64" stroke-width="1.6"/></g>
+          <path d="M40 78V120M80 78V122M120 78V120M160 78V123M200 78V120M240 78V122M280 78V120M320 79V123M360 79V120M400 78V122M440 78V120M480 77V123M520 77V120"/>
+          <path d="M520 76V44H578V76M512 44L549 20L586 44"/><path d="M536 56h10v14h-10z"/>
+          <path d="M20 132q16-9 32 0t32 0t32 0M300 138q16-9 32 0t32 0t32 0M130 148q16-9 32 0t32 0t32 0M470 150q16-9 32 0t32 0" stroke-width="1.8"/>
+        </svg>
+        <figcaption class="mono" style="text-transform:none">fig. 1 · the view from the pier</figcaption>
+      </figure>
     </div>
 
+    <section>
+      <div class="sec"><span class="mono">Now</span></div>
+      <ul class="now">
+        <li>Currently building the <a class="lnk" href="https://rivian.com/experience/charging">Rivian Adventure Network</a> (RAN) at Rivian</li>
+        <li>Founder, <a class="lnk" href="https://instagram.com/huntingtonrunclub">Huntington Run Club</a> &amp; <a class="lnk" href="https://instagram.com/socialplunge">Social Plunge</a></li>
+        <li><a href="mailto:liamloft8@gmail.com" class="lnk">Seeking ambitious ideas →</a></li>
+      </ul>
+    </section>
+
+    <section id="work">
+      <div class="sec"><span class="mono">§ 01 · Work</span><h2>Charging, and a whole lot of Energy!</h2></div>
+      <p class="sub">Six years across test hardware, factory automation, and the DC fast charging network.</p>
+      <div class="stats">
+        <div class="stat"><strong>$10M+</strong><span>in kWh delivered on the RAN DCFC platform I develop software for</span></div>
+        <div class="stat"><strong>98%</strong><span>uptime across 1000+ plugs</span></div>
+        <div class="stat"><strong>+15%</strong><span>storefront sales growth, Top 3 on Mercado Libre</span></div>
+      </div>
+      <div class="job"><div class="mono">Aug 2024 – now</div><div><h3>Sr. Embedded Software Engineer</h3><p class="co">Rivian, Irvine</p><ul>
+        <li>Pitched custom HMI features to senior leadership and led the cross-functional build, mentoring a junior developer. It opened new revenue streams and strategic partnerships.</li>
+        <li>Built cloud integration (OCPP 2.0.1), billing, and HMI software for OpenRAN, Rivian’s open DC fast charging network.</li></ul></div></div>
+      <div class="job"><div class="mono">Aug 2022 – Aug 2024</div><div><h3>Embedded Software Engineer</h3><p class="co">Rivian</p><ul>
+        <li>Led credit card reader integration for OpenRAN across cloud and embedded software, legal, finance, the mobile app, and third-party payments.</li>
+        <li>Engineered DCFC embedded systems in C++, Docker, Jenkins, Qt, GitLab, Linux, and Mender.</li></ul></div></div>
+      <div class="job"><div class="mono">Feb – Aug 2022</div><div><h3>Test Automation Engineer</h3><p class="co">Rivian</p><ul>
+        <li>Designed end-of-line ECU test hardware and sequences for the R1T and R1S with NI DAQ, LabVIEW, TestStand, Python, and OpenHTF.</li></ul></div></div>
+      <div class="job"><div class="mono">Feb 2021 – Feb 2022</div><div><h3>Mechatronics Engineer</h3><p class="co">Lawrence Equipment, Los Angeles</p><ul>
+        <li>Installed and serviced automated flatbread and chip fryer production lines worldwide.</li>
+        <li>Programmed Allen-Bradley PLCs (Studio 5000) and designed parts in Autodesk Inventor.</li></ul></div></div>
+      <div class="job"><div class="mono">Jun 2020 – Feb 2021</div><div><h3>Business, Sales &amp; Engineering</h3><p class="co">Uría S.A. de C.V., Mexico City</p><ul>
+        <li>Generated over $500,000 MXN in sales from new customers nationwide.</li>
+        <li>Retrofitted a 1980s ELOX wire EDM machine with a Fanuc 200c control, so it takes USB NC code instead of punched tape.</li></ul></div></div>
+    </section>
+
+    <section id="side">
+      <div class="sec"><span class="mono">§ 02 · Side quests</span><h2>Things I made because I wanted to.</h2></div>
+      <p class="sub">Communities, builds, and one very old machine.</p>
+      <div class="entry"><div class="top"><span class="mono">01</span><span class="stamp">Community</span></div><h3>Huntington Run Club</h3><p>Founded @huntingtonrunclub. Partners have included Red Bull, Electrolit, and TruFru.</p></div>
+      <div class="entry"><div class="top"><span class="mono">02</span><span class="stamp">Community</span></div><h3>Social Plunge</h3><p>Founded @socialplunge, with brand partnerships of its own.</p></div>
+      <div class="entry"><div class="top"><span class="mono">03</span><span class="stamp">Build</span></div><h3>FPV drone</h3><p>Built a custom first-person-view drone, and I fly it.</p></div>
+      <div class="entry"><div class="top"><span class="mono">04</span><span class="stamp">Build</span></div><h3>3D printer</h3><p>Built the printer, then designed and made custom parts on it.</p></div>
+      <div class="entry"><div class="top"><span class="mono">05</span><span class="stamp">Retrofit</span></div><h3>Wire EDM, USB edition</h3><p>Brought a 1980s machine into the USB era, then cut die sets on it with Mastercam.</p></div>
+    </section>
+
+    <section id="about">
+      <div class="sec"><span class="mono">§ 03 · About</span><h2>Athlete first.</h2></div>
+      <div class="two">
+        <div>
+          <p><b>I played football through college</b> on a student-athlete scholarship and now race triathlons. That’s where the grit comes from.</p>
+          <p>I studied Mechatronics Engineering at Tec de Monterrey, with courses at Sydney, Caltech, and UC Irvine. I speak English, Spanish, and Russian, and I’m a Lululemon ambassador.</p>
+          <div class="chips"><span class="chip">C++</span><span class="chip">Python</span><span class="chip">Git</span><span class="chip">SolidWorks</span><span class="chip">Inventor</span><span class="chip">Mastercam</span><span class="chip">3D print</span><span class="chip">FPV</span></div>
+        </div>
+        <ul class="edu" aria-label="Education">
+          <li><span>UC Irvine, Embedded Systems Engineering</span><span>2025</span></li>
+          <li><span>Caltech, Object-Oriented Programming</span><span>2021</span></li>
+          <li><span>University of Sydney, Quantitative Analysis</span><span>2020</span></li>
+          <li><span>Tec de Monterrey, B.S. Mechatronics</span><span>2016–20</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="sec"><span class="mono">§ 04 · Contact</span><h2>Got an ambitious idea?</h2></div>
+      <a class="big" href="mailto:liamloft8@gmail.com">liamloft8@gmail.com</a>
+      <div class="links"><a href="tel:+19498679463">(949) 867-9463</a><a href="https://instagram.com/huntingtonrunclub">@huntingtonrunclub</a><a href="https://instagram.com/socialplunge">@socialplunge</a></div>
+    </section>
   </main>
-
-
-
-
-
-
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+  <footer class="rail">Liam Loftus · Sr. Embedded Software Engineer · Rivian · made with care in 2026</footer>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function put(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var P=[["Pacific","#0B6FB8","#5BB4F0"],["Sunset","#C8401F","#FF7A5C"],["Kelp","#1F7A4D","#5FD08F"],["Plum","#8E3A7C","#E08AD0"],["Indigo","#4C4FD0","#9A9CFF"],["Sand","#9A6A0C","#F0BE4D"]];
+  var sw=document.getElementById("sw"),nm=document.getElementById("swname");
+  function setAcc(i){var p=P[i];root.style.setProperty("--acc-l",p[1]);root.style.setProperty("--acc-d",p[2]);nm.textContent=p[0];
+    [].forEach.call(sw.children,function(b,j){b.setAttribute("aria-pressed",j===i?"true":"false")});put("acc",i)}
+  P.forEach(function(p,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label",p[0]);b.style.setProperty("--c",p[1]);b.onclick=function(){setAcc(i)};sw.appendChild(b)});
+  var s=parseInt(get("acc"),10);setAcc(isNaN(s)||!P[s]?0:s);
+  var t=get("theme");if(t)root.setAttribute("data-theme",t);
+  document.getElementById("mode").onclick=function(){
+    var cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    var n=cur==="dark"?"light":"dark";root.setAttribute("data-theme",n);put("theme",n)};
+  var rail=document.getElementById("rail"),fill=document.getElementById("fill"),drop=document.getElementById("drop"),tick=false;
+  function upd(){tick=false;var rr=rail.getBoundingClientRect(),fb=document.querySelector(".fig").getBoundingClientRect().bottom+16,st=fb-rr.top,r={top:fb},h=rr.height-st;rail.firstElementChild.style.top=st+"px";rail.classList.toggle("on",innerHeight*.4>fb);
+    var y=Math.min(Math.max(innerHeight*.4-r.top,0),h);fill.style.height=y+"px";drop.style.top=y+"px"}
+  function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
+  addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd();
+})();
+</script>
 </body>
-
 </html>
