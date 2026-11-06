@@ -33,10 +33,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-off
 .mode{font:500 .85rem var(--mono);background:none;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:.35rem .8rem;cursor:pointer}
 .mode:hover{border-color:var(--accent)}
 .rail{position:relative;padding-left:var(--gut)}
-.spine{position:absolute;left:var(--spine);top:0;bottom:0;width:2px;background:var(--line)}
+.spine{position:absolute;left:var(--spine);top:0;bottom:0;width:2px}
 .spine i{position:absolute;left:0;top:0;width:2px;height:0;background:var(--accent)}
-.drop{position:absolute;left:-7px;top:0;width:16px;height:16px;background:var(--accent);border-radius:50% 0 50% 50%;transform:translateY(-8px) rotate(-45deg);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent)}
-.fig{position:relative}.fig .conn{position:absolute;left:calc(var(--spine) - var(--gut));top:40%;bottom:-1rem;width:calc(var(--gut) - var(--spine) + .5rem);height:auto}
+.drop{position:absolute;left:-7px;top:0;width:16px;height:16px;background:var(--accent);border-radius:50% 0 50% 50%;transform:translateY(-8px) rotate(-45deg)}
+.fig{position:relative}.fig .conn{position:absolute;left:calc(var(--spine) - var(--gut));top:40%;width:calc(var(--gut) - var(--spine) + .5rem);height:calc(60% + 1rem + 1px)}
 .spine,.fig .conn,.sec::before{transition:opacity .45s}
 .rail:not(.on) .spine,.rail:not(.on) .conn,.rail:not(.on) .sec::before{opacity:0}
 .mono{font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -48,8 +48,9 @@ h1 span{display:block}
 .u svg{position:absolute;left:0;bottom:-.12em;width:100%;height:.22em;color:var(--accent);overflow:visible}
 .lead{font-size:clamp(1.2rem,3.4vw,1.6rem);line-height:1.4;max-width:36rem;margin:2.2rem 0 0}
 .lead b{color:var(--accent);font-weight:500;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--accent) 18%,transparent) 62%)}
-.note{font:400 1rem/1.6 var(--mono);color:var(--accent);margin:2rem 0 0 1.6rem;max-width:20rem;position:relative}
-.note svg{position:absolute;left:-1.6rem;top:-.2rem;width:1.3rem;height:1.8rem;color:var(--accent)}
+.note{font:400 1rem/1.6 var(--mono);color:var(--accent);margin:2.4rem 0 0 clamp(3rem,14vw,9rem);max-width:20rem;position:relative}
+.note .txt{display:block;transform:rotate(-4deg);transform-origin:0 0}
+.note svg{position:absolute;left:-1.6rem;top:-.2rem;width:1.3rem;height:1.8rem;color:var(--accent);overflow:visible;pointer-events:none}
 .cta{display:flex;flex-wrap:wrap;gap:1.25rem 1.75rem;align-items:center;margin-top:2rem}
 .btn{display:inline-block;background:var(--accent);color:var(--bg);font-weight:500;text-decoration:none;padding:.85rem 1.5rem;outline:2px solid var(--ink);outline-offset:4px;border-radius:2px}
 .btn:hover{transform:translate(-1px,-1px)}
@@ -117,8 +118,8 @@ footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-siz
     <div class="hero">
       <p class="mono">Ideas &amp; Notes, 2026 · Southern California</p>
       <h1><span>Creativity is</span><span>intelligence</span><span class="u">having fun.<svg viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 C60 2, 120 10, 180 5 S270 4, 298 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
-      <p class="lead"><b>Sr. Embedded Software Engineer at Rivian.</b> Former collegiate athlete, founder of Huntington Run Club, and maker.</p>
-      <p class="note"><svg viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 26 C4 24 3 12 6 4 M2 9 L6 3 L11 8"/></svg>note to self: try it. it’s usually not as hard as you think, and if it is, great!</p>
+      <p class="lead"><b>Sr. Embedded Software Engineer at Rivian.</b> Former collegiate athlete, founder of Huntington Run Club, and <span id="maker">maker</span>.</p>
+      <p class="note"><svg id="noteArrow" viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 26 C4 24 3 12 6 4 M2 9 L6 3 L11 8"/></svg><span class="txt">note to self: try it. it’s usually not as hard as you think, and if it is, great!</span></p>
       <div class="cta"><a class="btn" href="#work">See the work ↓</a><a class="lnk" href="#side">Side quests ↓</a></div>
 
       <div class="ink">
@@ -127,7 +128,7 @@ footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-siz
         <span class="mono" id="swname" style="text-transform:none"></span>
       </div>
 
-      <figure class="fig"><svg class="conn" viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true"><path d="M40 0 C8 0 1 25 1 100" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+      <figure class="fig"><svg class="conn" viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="cclip"><rect id="crect" x="-5" y="-5" width="50" height="0"/></clipPath></defs><path d="M40 0 C8 0 1 25 1 100" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke" clip-path="url(#cclip)"/></svg>
         <svg viewBox="0 0 600 170" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Sketch of a pier over the ocean">
           <g class="acc"><path d="M14 78 C150 74 330 82 530 76"/><path d="M14 66 C150 62 330 70 530 64" stroke-width="1.6"/></g>
           <path d="M40 78V120M80 78V122M120 78V120M160 78V123M200 78V120M240 78V122M280 78V120M320 79V123M360 79V120M400 78V122M440 78V120M480 77V123M520 77V120"/>
@@ -156,7 +157,7 @@ footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-siz
         <div class="stat"><strong>+15%</strong><span>storefront sales growth, Top 3 on Mercado Libre</span></div>
       </div>
       <div class="job"><div class="mono">Aug 2024 – now</div><div><h3>Sr. Embedded Software Engineer</h3><p class="co">Rivian, Irvine</p><ul>
-        <li>Pitched custom HMI features to senior leadership and led the cross-functional build, mentoring a junior developer. It opened new revenue streams and strategic partnerships.</li>
+        <li>Pitched custom HMI features to senior leadership and led the cross-functional build, mentoring a junior developer. It opened new revenue streams and <a class="lnk" href="https://rivian.com/l/halloween">strategic partnerships</a>.</li>
         <li>Built cloud integration (OCPP 2.0.1), billing, and HMI software for OpenRAN, Rivian’s open DC fast charging network.</li></ul></div></div>
       <div class="job"><div class="mono">Aug 2022 – Aug 2024</div><div><h3>Embedded Software Engineer</h3><p class="co">Rivian</p><ul>
         <li>Led credit card reader integration for OpenRAN across cloud and embedded software, legal, finance, the mobile app, and third-party payments.</li>
@@ -174,18 +175,18 @@ footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-siz
     <section id="side">
       <div class="sec"><span class="mono">§ 02 · Side quests</span><h2>Things I made because I wanted to.</h2></div>
       <p class="sub">Communities, builds, and one very old machine.</p>
-      <div class="entry"><div class="top"><span class="mono">01</span><span class="stamp">Community</span></div><h3>Huntington Run Club</h3><p>Founded @huntingtonrunclub. Partners have included Red Bull, Electrolit, and TruFru.</p></div>
+      <div class="entry"><div class="top"><span class="mono">01</span><span class="stamp">Community</span></div><h3>Huntington Run Club</h3><p>Founded @huntingtonrunclub. Partners have included Red Bull, Electrolit, and TruFru. lululemon ambassador for 2026 and 2027.</p></div>
       <div class="entry"><div class="top"><span class="mono">02</span><span class="stamp">Community</span></div><h3>Social Plunge</h3><p>Founded @socialplunge, with brand partnerships of its own.</p></div>
-      <div class="entry"><div class="top"><span class="mono">03</span><span class="stamp">Build</span></div><h3>FPV drone</h3><p>Built a custom first-person-view drone, and I fly it.</p></div>
+      <div class="entry"><div class="top"><span class="mono">03</span><span class="stamp">Build</span></div><h3>FPV drone</h3><p>Built a custom first-person-view drone, and I’ve only crashed it a couple of times.</p></div>
       <div class="entry"><div class="top"><span class="mono">04</span><span class="stamp">Build</span></div><h3>3D printer</h3><p>Built the printer, then designed and made custom parts on it.</p></div>
       <div class="entry"><div class="top"><span class="mono">05</span><span class="stamp">Retrofit</span></div><h3>Wire EDM, USB edition</h3><p>Brought a 1980s machine into the USB era, then cut die sets on it with Mastercam.</p></div>
     </section>
 
     <section id="about">
-      <div class="sec"><span class="mono">§ 03 · About</span><h2>Athlete first.</h2></div>
+      <div class="sec"><span class="mono">§ 03 · About</span><h2>Athletic journey.</h2></div>
       <div class="two">
         <div>
-          <p><b>I played football through college</b> on a student-athlete scholarship and now race triathlons. That’s where the grit comes from.</p>
+          <p><b>I represented Mexico twice in international competitions</b> and earned a student-athlete scholarship to play football through college. I’ve stayed active and fit ever since, and my newest hobby is racing Ironmans.</p>
           <p>I studied Mechatronics Engineering at Tec de Monterrey, with courses at Sydney, Caltech, and UC Irvine. I speak English, Spanish, and Russian, and I’m a Lululemon ambassador.</p>
           <div class="chips"><span class="chip">C++</span><span class="chip">Python</span><span class="chip">Git</span><span class="chip">SolidWorks</span><span class="chip">Inventor</span><span class="chip">Mastercam</span><span class="chip">3D print</span><span class="chip">FPV</span></div>
         </div>
@@ -222,10 +223,30 @@ footer{padding:3rem 0 3.5rem;color:var(--muted);font-family:var(--mono);font-siz
     var cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
     var n=cur==="dark"?"light":"dark";root.setAttribute("data-theme",n);put("theme",n)};
   var rail=document.getElementById("rail"),fill=document.getElementById("fill"),drop=document.getElementById("drop"),tick=false;
-  function upd(){tick=false;var rr=rail.getBoundingClientRect(),fb=document.querySelector(".fig").getBoundingClientRect().bottom+16,st=fb-rr.top,r={top:fb},h=rr.height-st;rail.firstElementChild.style.top=st+"px";rail.classList.toggle("on",innerHeight*.4>fb);
-    var y=Math.min(Math.max(innerHeight*.4-r.top,0),h);fill.style.height=y+"px";drop.style.top=y+"px"}
+  var conn=document.querySelector(".fig .conn"),crect=document.getElementById("crect");
+  // pier curve: cubic (40,0)(8,0)(1,25)(1,100) in a 40x100 viewBox; y is monotonic in t
+  function bz(a,b,c,d,t){var u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d}
+  function tAtY(y){var lo=0,hi=1;for(var i=0;i<24;i++){var m=(lo+hi)/2;if(bz(0,0,25,100,m)<y)lo=m;else hi=m}return lo}
+  function upd(){tick=false;var rr=rail.getBoundingClientRect(),fb=document.querySelector(".fig").getBoundingClientRect().bottom+16,st=fb-rr.top,h=rr.height-st;rail.firstElementChild.style.top=st+"px";
+    var cr=conn.getBoundingClientRect(),a=innerHeight*.6;rail.classList.toggle("on",innerHeight*.85>cr.top);
+    if(a<fb){var yv=Math.min(Math.max((a-cr.top)/cr.height*100,0),100),t=tAtY(yv),xv=bz(40,8,1,1,t);
+      crect.setAttribute("height",yv+5);fill.style.height="0px";
+      drop.style.left=(cr.left+xv*cr.width/40-rail.firstElementChild.getBoundingClientRect().left-8)+"px";drop.style.top=(cr.top+bz(0,0,25,100,t)*cr.height/100-fb)+"px"}
+    else{var y=Math.min(a-fb,h);crect.setAttribute("height",110);fill.style.height=y+"px";drop.style.left="";drop.style.top=y+"px"}}
   function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
   addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd();
+  // aim the note-to-self arrow at "maker" (its spot depends on how the lead wraps)
+  var note=document.querySelector(".note"),arw=document.getElementById("noteArrow"),mk=document.getElementById("maker");
+  function aim(){var n=note.getBoundingClientRect(),m=mk.getBoundingClientRect(),
+      sx=-10,sy=10,ex=m.left+m.width/2-n.left,ey=m.bottom+5-n.top,
+      c1x=sx-4,c1y=sy+(ey-sy)*.55,c2x=ex-(ex-sx)*.35,c2y=ey+Math.min(30,(sy-ey)*.4),
+      dx=ex-c2x,dy=ey-c2y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,k=8,cs=Math.cos(.5),sn=Math.sin(.5),
+      h1x=ex-k*(ux*cs-uy*sn),h1y=ey-k*(uy*cs+ux*sn),h2x=ex-k*(ux*cs+uy*sn),h2y=ey-k*(uy*cs-ux*sn),
+      x0=Math.min(sx,ex,c1x)-10,y0=Math.min(sy,ey)-10,x1=Math.max(sx,ex)+10,y1=Math.max(sy,c2y,ey)+10,f=function(v){return v.toFixed(1)};
+    arw.setAttribute("viewBox",[x0,y0,x1-x0,y1-y0].map(f).join(" "));
+    arw.style.cssText="left:"+x0+"px;top:"+y0+"px;width:"+(x1-x0)+"px;height:"+(y1-y0)+"px";
+    arw.firstChild.setAttribute("d","M"+f(sx)+" "+f(sy)+" C"+[c1x,c1y,c2x,c2y,ex,ey].map(f).join(" ")+" M"+f(h1x)+" "+f(h1y)+" L"+f(ex)+" "+f(ey)+" L"+f(h2x)+" "+f(h2y))}
+  addEventListener("resize",aim);(document.fonts?document.fonts.ready:Promise.resolve()).then(aim);aim();
 })();
 </script>
 </body>
